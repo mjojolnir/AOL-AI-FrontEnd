@@ -5,10 +5,10 @@ export default function Results() {
   const location = useLocation();
 
   // Nanti backend akan mengirim data di sini:
-  const { imageURL, prediction, confidence } = location.state || {
+  const { imageURL, prediction, probability } = location.state || {
     imageURL: null,
     prediction: "No data",
-    confidence: 0,
+    probability: 0,
   };
 
   return (
@@ -35,31 +35,25 @@ export default function Results() {
               alt="Uploaded X-ray"
               className="max-w-[480px] rounded-xl shadow-xl mb-6"
             />
-
-            {/* Placeholder bounding box */}
-            <div
-              className="
-              absolute
-              top-[20%]
-              left-[15%]
-              w-[60%]
-              h-[40%]
-              border-4 border-red-400
-              rounded-md
-              pointer-events-none
-            "
-            ></div>
           </div>
 
           {/* Diagnosis Info */}
           <div className="bg-white/10 backdrop-blur-sm px-8 py-6 rounded-2xl shadow-lg text-center w-[480px]">
-            <h2 className="text-2xl font-semibold mb-2">
-              {prediction || "Pneumonia Detected"}
+            <h2
+              className={`text-2xl font-semibold mb-2 ${
+                prediction === "Pneumonia" ? "text-red-400" : "text-green-400"
+              }`}
+            >
+              {prediction || "Pneumonia Detected"}{" "}
+              {/* Tetap tampilkan hasil prediksi */}
             </h2>
             <p className="text-gray-300">
-              Confidence:{" "}
+              Probability:{" "}
               <span className="font-bold text-white">
-                {confidence || "0.92"}
+                <span className="font-bold text-white">
+                  {(probability * 100).toFixed(2)}%{" "}
+                  {/* Probability dari backend */}
+                </span>
               </span>
             </p>
           </div>

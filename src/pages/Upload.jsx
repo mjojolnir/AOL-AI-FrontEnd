@@ -44,8 +44,7 @@ export default function Upload() {
         state: {
           imageURL: previewURL,
           prediction: data.prediction,
-          confidence: data.confidence,
-          bbox: data.bbox,
+          probability: data.probability,
         },
       });
     } catch (err) {
